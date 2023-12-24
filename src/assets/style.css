@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overscroll-behavior: none;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid #f00;
+}
+
+canvas {
+    display: block;
+}
+
+#splash {
+    position: fixed;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0);
+    transition: all ease-in-out 600ms;
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid #f00;
+}
+
+/* @media screen and (min-width: 640px)
+.links-block {
+    margin-right: 0;
+    margin-left: 0;
+}
+.links-block .dash:after {
+    height: 28px;
+} 
+.links-block .inner {
+    height: 56px;
+}*/
