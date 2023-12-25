@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import lines from '../assets/data/dots-1.json';
 import imgMap from '../assets/data/map-1.jpg';
+import VanillaTilt from 'vanilla-tilt';
 /*import fragment from './shaders/fragment.glsl';
 import vertex from './shaders/vertexParticles.glsl';*/
 const vertex = `
@@ -49,11 +50,26 @@ void main(){
 `;
 
 function Home() {
+  const homeRef = useRef<any>(null);
   const [container, setContainer] = useState<HTMLElement>();
   const [geometry, setGeometry] = useState<THREE.BufferGeometry>();
   const [camera, setCamera] = useState<THREE.PerspectiveCamera>();
   const [renderer, setRenderer] = useState<THREE.WebGLRenderer>();
   const [scene, setScene] = useState<THREE.Scene>();
+
+  useEffect(() => {
+    if (homeRef.current) {
+      VanillaTilt.init(homeRef.current, {
+        max: 25,
+        speed: 400,
+      });
+
+      return () => { 
+          const currentTiltRef = homeRef.current; 
+        currentTiltRef.vanillaTilt.destroy(); 
+      };
+    }
+  }, []);
 
   useEffect(() => {
     let width = window.innerWidth, height = window.innerHeight;
@@ -108,6 +124,7 @@ function Home() {
         setRenderer(new THREE.WebGLRenderer({ antialias: true }));
       }
     } else {
+
       let mouse = {
         x: 0,
         y: 0
@@ -173,7 +190,7 @@ function Home() {
 
 
   return (
-    <div className="home">
+    <div ref={homeRef} className="home">
       <div className="header">
         <span className="name">MR. Hassan Outhami</span>
         <span className="job">Software engineer</span>
